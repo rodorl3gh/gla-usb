@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+:root {
+  --brand-primary: #001f3f;
+  --brand-navy-2: #2a2f63;
+  --brand-blue: #3e6d9c;
+  --brand-blue-light: #5fb0c9;
+  --brand-teal: #a7e0db;
+  --brand-bg-light: #e3f6f5;
+  --brand-gold: #c6a15b;
+  --brand-gold-dark: #b8934e;
+  --brand-silver: #c0c0c0;
+  --brand-text: #001f3f;
+  --brand-text-secondary: #3e6d9c;
+  --brand-text-muted: #5fb0c9;
+  --brand-border: #a7e0db;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+body.admin-mode {
+  --admin-bg: #081320;
+  --admin-bg-secondary: #0f1f33;
+  --admin-bg-tertiary: #1a2f4a;
+  --admin-text: #eaf1f8;
+  --admin-text-secondary: #b7c6d8;
+  --admin-text-muted: #6d88a3;
+  --admin-border: #1e3550;
+  --admin-accent: #c6a15b;
+  --admin-accent-hover: #b8934e;
+}
+
+body.admin-mode.admin-light {
+  --admin-bg: #f4f6f9;
+  --admin-bg-secondary: #ffffff;
+  --admin-bg-tertiary: #eef1f5;
+  --admin-text: #0f1f33;
+  --admin-text-secondary: #33465c;
+  --admin-text-muted: #6d88a3;
+  --admin-border: #dbe2ea;
+  --admin-accent: #a8843f;
+  --admin-accent-hover: #977530;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #fff;
+  color: var(--brand-text);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: var(--brand-gold);
+  color: #1a1408;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover {
+  background: var(--brand-gold-dark);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--brand-border);
+  background: transparent;
+  color: var(--brand-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-outline:hover {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-dark);
+}
+
+body.admin-mode .btn-outline {
+  border-color: var(--admin-border);
+  color: var(--admin-text-secondary);
+}
+body.admin-mode .btn-outline:hover {
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
+}
+
+.glass-card {
+  background: #fff;
+  border: 1px solid var(--brand-border);
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(0, 31, 63, 0.06);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.625rem;
+  border: 1.5px solid var(--admin-border);
+  background: var(--admin-bg-tertiary);
+  color: var(--admin-text);
+  font-size: 0.875rem;
+  transition: border-color 0.15s ease;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--admin-accent);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.22s ease-out;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out both;
+}
+
+/* ── Scroll reveal ─────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hover effects ─────────────────────────────── */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(0, 31, 63, 0.14);
+}
+
+.hover-gold:hover {
+  border-color: var(--brand-gold);
+}
+
+.hover-scale {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-scale:hover {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .float-pulse {
+    animation: none;
+  }
+  .parallax1 > use,
+  .parallax2 > use,
+  .parallax3 > use,
+  .parallax4 > use {
+    animation: none;
+  }
+}
+
+/* ── Wave separators ─────────────────────────── */
+.wave-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.parallax1 > use {
+  animation: move-forever 7s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax2 > use {
+  animation: move-forever 10s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax3 > use {
+  animation: move-forever 13s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax4 > use {
+  animation: move-forever 20s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@keyframes float-whatsapp {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.float-pulse {
+  animation: float-whatsapp 3s ease-in-out infinite;
+}
+
+@keyframes shimmer-line {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Scrollbar global sutil */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sb-track, #f2f6fa);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb, #c4d2e0);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-gold);
+}
+
+/* ── Wave dividers ─────────────────────────────── */
+.wave-divider {
+  height: 120px;
+}
+@media (max-width: 640px) {
+  .wave-divider {
+    height: 72px;
+  }
+}
+
+body.admin-mode ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+body.admin-mode ::-webkit-scrollbar-track {
+  background: var(--admin-bg);
+}
+body.admin-mode ::-webkit-scrollbar-thumb {
+  background: var(--admin-border);
+  border-radius: 3px;
+}
