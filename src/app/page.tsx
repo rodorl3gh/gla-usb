@@ -755,7 +755,7 @@ function WhatsAppIcon({
   );
 }
 
-function WaveDivider({ flip = false }: { top?: string; bottom?: string; flip?: boolean }) {
+function WaveDivider({ flip = false, top = "#001f3f", bottom = "#ffffff" }: { top?: string; bottom?: string; flip?: boolean }) {
   return (
     <div
       aria-hidden="true"
@@ -763,19 +763,9 @@ function WaveDivider({ flip = false }: { top?: string; bottom?: string; flip?: b
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundImage: "url(/fondo.avif)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: `linear-gradient(180deg, ${top} 0%, ${bottom} 100%)`,
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(100deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.32) 100%)",
-        }}
-      />
       <svg
         className="wave-svg"
         xmlns="http://www.w3.org/2000/svg"

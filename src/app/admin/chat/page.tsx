@@ -470,14 +470,15 @@ function AgentConfig({ onClose }: { onClose: () => void }) {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <label style={labelStyle}>
-            Tiempo de respuesta (ms)
+            Tiempo de respuesta: {config.delay_ms} ms
             <input
-              type="number"
+              type="range"
               min={0}
               max={60000}
+              step={500}
               value={config.delay_ms}
               onChange={(e) => setConfig({ ...config, delay_ms: Number(e.target.value) })}
-              className="input-field"
+              style={{ accentColor: "var(--brand-orange)" }}
             />
             <span style={{ fontSize: "0.65rem", fontWeight: 400, color: "var(--admin-text-muted)" }}>Retraso antes de responder para simular naturalidad</span>
           </label>
