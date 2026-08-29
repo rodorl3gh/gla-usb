@@ -125,7 +125,7 @@ export default function Home() {
         </defs>
       </svg>
 
-      {/* ── HERO ─────────────────────────────────── */}
+      {/* -- HERO ----------------------------------- */}
       <section
         id="inicio"
         style={{
@@ -145,14 +145,14 @@ export default function Home() {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(100deg, rgba(0,15,38,0.92) 0%, rgba(0,22,55,0.72) 45%, rgba(0,15,38,0.45) 100%)",
+              "linear-gradient(100deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.62) 45%, rgba(0,0,0,0.38) 100%)",
           }}
         />
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(180deg, transparent 55%, rgba(0,15,38,0.55) 100%)",
+            background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.5) 100%)",
           }}
         />
         <div style={{ maxWidth: "1080px", margin: "0 auto", padding: "7rem 1.5rem 6rem", position: "relative", width: "100%" }}>
@@ -164,8 +164,8 @@ export default function Home() {
                 gap: "0.5rem",
                 padding: "0.4rem 1rem",
                 borderRadius: "2rem",
-                backgroundColor: "rgba(198,161,91,0.16)",
-                border: "1px solid rgba(198,161,91,0.4)",
+                backgroundColor: "rgba(245,188,25,0.16)",
+                border: "1px solid rgba(245,188,25,0.4)",
                 fontSize: "0.75rem",
                 fontWeight: 700,
                 letterSpacing: "0.16em",
@@ -197,7 +197,7 @@ export default function Home() {
               style={{
                 fontSize: "1.1rem",
                 lineHeight: 1.6,
-                color: "#d7e3ee",
+                color: "#e8eef3",
                 maxWidth: "560px",
                 margin: "0 0 2.25rem",
               }}
@@ -221,7 +221,7 @@ export default function Home() {
                   fontWeight: 700,
                   fontSize: "1rem",
                   textDecoration: "none",
-                  boxShadow: "0 12px 30px rgba(198,161,91,0.35)",
+                  boxShadow: "0 12px 30px rgba(245,188,25,0.35)",
                 }}
               >
                 <CalendarDays size={18} /> Agendar plática informativa
@@ -273,7 +273,7 @@ export default function Home() {
                   </div>
                   <div style={{ lineHeight: 1.2 }}>
                     <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>{s.label}</div>
-                    <div style={{ fontSize: "0.75rem", color: "#a9bed2" }}>{s.sub}</div>
+                    <div style={{ fontSize: "0.75rem", color: "#c3cdd6" }}>{s.sub}</div>
                   </div>
                 </div>
               ))}
@@ -284,7 +284,7 @@ export default function Home() {
 
       <WaveDivider top="#000f26" bottom="#ffffff" />
 
-      {/* ── LICENCIATURAS ────────────────────────── */}
+      {/* -- LICENCIATURAS -------------------------- */}
       <section id="licenciaturas" style={{ padding: "5rem 1.5rem" }}>
         <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
           <Reveal>
@@ -367,7 +367,7 @@ export default function Home() {
 
       <WaveDivider top="#ffffff" bottom="#001f3f" flip />
 
-      {/* ── MAESTRÍAS ────────────────────────────── */}
+      {/* -- MAESTRÍAS ------------------------------ */}
       <section id="maestrias" style={{ backgroundColor: "var(--brand-primary)", padding: "5rem 1.5rem", color: "#fff" }}>
         <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
           <Reveal>
@@ -378,7 +378,7 @@ export default function Home() {
               <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.4rem)", fontWeight: 800, margin: "0.75rem 0", fontFamily: "var(--font-display)", color: "#fff" }}>
                 Maestrías
               </h2>
-              <p style={{ color: "#b7c6d8", maxWidth: "560px", margin: "0 auto" }}>
+              <p style={{ color: "var(--brand-text-secondary)", maxWidth: "560px", margin: "0 auto" }}>
                 Especialízate y da el siguiente paso en tu desarrollo profesional.
               </p>
             </div>
@@ -406,7 +406,7 @@ export default function Home() {
                         width: "3rem",
                         height: "3rem",
                         borderRadius: "0.9rem",
-                        backgroundColor: "rgba(198,161,91,0.14)",
+                        backgroundColor: "rgba(245,188,25,0.14)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -416,7 +416,7 @@ export default function Home() {
                       <Icon size={22} color="var(--brand-gold)" />
                     </div>
                     <h3 style={{ fontSize: "1.05rem", fontWeight: 700, margin: "0 0 0.4rem", color: "#fff" }}>{m.nombre}</h3>
-                    <p style={{ fontSize: "0.85rem", color: "#b7c6d8", lineHeight: 1.55, margin: "0 0 1rem", flex: 1 }}>
+                    <p style={{ fontSize: "0.85rem", color: "#d5dde5", lineHeight: 1.55, margin: "0 0 1rem", flex: 1 }}>
                       {m.descripcion}
                     </p>
                     {m.rvoe && (
@@ -454,7 +454,7 @@ export default function Home() {
 
       <WaveDivider top="#001f3f" bottom="#ffffff" />
 
-      {/* ── NOSOTROS / VALORES ───────────────────── */}
+      {/* -- NOSOTROS / VALORES --------------------- */}
       <section id="nosotros" style={{ padding: "5rem 1.5rem" }}>
         <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
           <Reveal>
@@ -479,7 +479,7 @@ export default function Home() {
                       width: "3.5rem",
                       height: "3.5rem",
                       borderRadius: "1rem",
-                      backgroundColor: "rgba(198,161,91,0.14)",
+                      backgroundColor: "rgba(245,188,25,0.14)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -515,7 +515,7 @@ export default function Home() {
                   <r.icon size={20} style={{ color: "var(--brand-gold)", flexShrink: 0, marginTop: 2 }} />
                   <div>
                     <div style={{ fontWeight: 700, color: "#fff" }}>{r.titulo}.</div>
-                    <div style={{ color: "#c4d2e0", fontSize: "0.85rem", marginTop: "0.2rem" }}>{r.texto}</div>
+                    <div style={{ color: "#d5dde5", fontSize: "0.85rem", marginTop: "0.2rem" }}>{r.texto}</div>
                   </div>
                 </div>
               ))}
@@ -526,7 +526,7 @@ export default function Home() {
 
       <WaveDivider top="#ffffff" bottom="#001f3f" flip />
 
-      {/* ── CONTACTO / CTA ───────────────────────── */}
+      {/* -- CONTACTO / CTA ------------------------- */}
       <section id="contacto" style={{ padding: "5rem 1.5rem", backgroundColor: "var(--brand-primary)", color: "#fff" }}>
         <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
           <Reveal>
@@ -537,7 +537,7 @@ export default function Home() {
               <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.4rem)", fontWeight: 800, margin: "0.75rem 0 0.5rem", fontFamily: "var(--font-display)", color: "#fff" }}>
                 Agenda tu plática informativa
               </h2>
-              <p style={{ color: "#b7c6d8", maxWidth: "520px", margin: "0 auto" }}>
+              <p style={{ color: "#d5dde5", maxWidth: "520px", margin: "0 auto" }}>
                 Conoce nuestras instalaciones y resuelve tus dudas con un asesor académico. Cupo limitado.
               </p>
             </div>
@@ -573,7 +573,7 @@ export default function Home() {
                     fontWeight: 700,
                     fontSize: "0.98rem",
                     textDecoration: "none",
-                    boxShadow: "0 12px 30px rgba(198,161,91,0.3)",
+                    boxShadow: "0 12px 30px rgba(245,188,25,0.3)",
                   }}
                 >
                   <CalendarDays size={18} /> Agendar plática ahora
@@ -592,8 +592,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOTER ───────────────────────────────── */}
-      <footer style={{ backgroundColor: "#000f26", color: "#b7c6d8", padding: "3rem 1.5rem" }}>
+      {/* -- FOOTER --------------------------------- */}
+      <footer style={{ backgroundColor: "#142e42", color: "#d5dde5", padding: "3rem 1.5rem" }}>
         <div style={{ maxWidth: "1080px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "1.25rem", alignItems: "center", textAlign: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}>
             <div
@@ -624,7 +624,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ── BOTÓN FLOTANTE WHATSAPP ──────────────── */}
+      {/* -- BOTÓN FLOTANTE WHATSAPP ---------------- */}
       <a
         href={wa}
         target="_blank"
@@ -773,7 +773,7 @@ function WaveDivider({ flip = false }: { top?: string; bottom?: string; flip?: b
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(100deg, rgba(0,15,38,0.9) 0%, rgba(0,22,55,0.7) 45%, rgba(0,15,38,0.4) 100%)",
+            "linear-gradient(100deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.32) 100%)",
         }}
       />
       <svg
@@ -791,13 +791,13 @@ function WaveDivider({ flip = false }: { top?: string; bottom?: string; flip?: b
         }}
       >
         <g className="parallax1">
-          <use href="#gentle-wave" x="48" y="0" fill="#000f26" fillOpacity="0.9" />
+          <use href="#gentle-wave" x="48" y="0" fill="#142e42" fillOpacity="0.9" />
         </g>
         <g className="parallax2">
-          <use href="#gentle-wave" x="48" y="3" fill="#2a4bc7" fillOpacity="0.2" />
+          <use href="#gentle-wave" x="48" y="3" fill="#1d3f5a" fillOpacity="0.25" />
         </g>
         <g className="parallax3">
-          <use href="#gentle-wave" x="48" y="5" fill="#c6a15b" fillOpacity="0.1" />
+          <use href="#gentle-wave" x="48" y="5" fill="#f5bc19" fillOpacity="0.12" />
         </g>
       </svg>
     </div>

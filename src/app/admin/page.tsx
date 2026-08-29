@@ -8,6 +8,7 @@ import {
   ListChecks,
   GraduationCap,
   BookOpen,
+  MessageCircle,
   FileSpreadsheet,
   Database,
 } from "lucide-react";
@@ -76,9 +77,10 @@ export default function AdminDashboard() {
 
   const links = [
     { href: "/admin/citas", label: "Gestionar pláticas", icon: CalendarDays },
+    { href: "/admin/horarios", label: "Horarios disponibles", icon: Clock },
+    { href: "/admin/chat", label: "Chat WhatsApp", icon: MessageCircle },
     { href: "/admin/licenciaturas", label: "Licenciaturas", icon: GraduationCap },
     { href: "/admin/maestrias", label: "Maestrías", icon: BookOpen },
-    { href: "/admin/config", label: "Configuración", icon: Database },
   ];
 
   return (

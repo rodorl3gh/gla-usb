@@ -97,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(105deg, rgba(0,15,38,0.94), rgba(0,22,55,0.78) 55%, rgba(0,15,38,0.6))",
+            background: "linear-gradient(105deg, rgba(0,0,0,0.9), rgba(0,0,0,0.72) 55%, rgba(0,0,0,0.55))",
           }}
         />
         <div

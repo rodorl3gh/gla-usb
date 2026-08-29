@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --brand-primary: #001f3f;
-  --brand-navy-2: #2a2f63;
-  --brand-blue: #3e6d9c;
-  --brand-blue-light: #5fb0c9;
-  --brand-teal: #a7e0db;
-  --brand-bg-light: #e3f6f5;
-  --brand-gold: #c6a15b;
-  --brand-gold-dark: #b8934e;
-  --brand-silver: #c0c0c0;
-  --brand-text: #001f3f;
-  --brand-text-secondary: #3e6d9c;
-  --brand-text-muted: #5fb0c9;
-  --brand-border: #a7e0db;
+  --brand-primary: #1d3f5a;
+  --brand-primary-dark: #142e42;
+  --brand-primary-light: #2b5574;
+  --brand-gold: #f5bc19;
+  --brand-gold-dark: #d9a410;
+  --brand-orange: #f37400;
+  --brand-bg: #fefbf5;
+  --brand-bg-light: #fdf5e6;
+  --brand-bg-card: #ffffff;
+  --brand-text: #1d3f5a;
+  --brand-text-secondary: #4a637a;
+  --brand-text-muted: #8a9bad;
+  --brand-border: #e7e0d2;
+  --brand-border-strong: #d5cbb6;
 
   --font-display: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
@@ -27,8 +28,8 @@ body.admin-mode {
   --admin-text-secondary: #b7c6d8;
   --admin-text-muted: #6d88a3;
   --admin-border: #1e3550;
-  --admin-accent: #c6a15b;
-  --admin-accent-hover: #b8934e;
+  --admin-accent: #f5bc19;
+  --admin-accent-hover: #d9a410;
 }
 
 body.admin-mode.admin-light {
@@ -39,8 +40,8 @@ body.admin-mode.admin-light {
   --admin-text-secondary: #33465c;
   --admin-text-muted: #6d88a3;
   --admin-border: #dbe2ea;
-  --admin-accent: #a8843f;
-  --admin-accent-hover: #977530;
+  --admin-accent: #c2920d;
+  --admin-accent-hover: #a87c08;
 }
 
 * {
@@ -54,7 +55,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: #fff;
+  background-color: var(--brand-bg);
   color: var(--brand-text);
 }
 
@@ -88,7 +89,7 @@ body {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
-  border: 1.5px solid var(--brand-border);
+  border: 1.5px solid var(--brand-border-strong);
   background: transparent;
   color: var(--brand-primary);
   font-weight: 600;
@@ -111,10 +112,10 @@ body.admin-mode .btn-outline:hover {
 }
 
 .glass-card {
-  background: #fff;
+  background: var(--brand-bg-card);
   border: 1px solid var(--brand-border);
   border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(0, 31, 63, 0.06);
+  box-shadow: 0 4px 24px rgba(29, 63, 90, 0.06);
 }
 
 .input-field {
@@ -194,7 +195,7 @@ body.admin-mode .btn-outline:hover {
 }
 .hover-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 44px rgba(0, 31, 63, 0.14);
+  box-shadow: 0 22px 44px rgba(29, 63, 90, 0.14);
 }
 
 .hover-gold:hover {
@@ -217,12 +218,6 @@ body.admin-mode .btn-outline:hover {
   .float-pulse {
     animation: none;
   }
-  .parallax1 > use,
-  .parallax2 > use,
-  .parallax3 > use,
-  .parallax4 > use {
-    animation: none;
-  }
 }
 
 /* ── Wave separators ─────────────────────────── */
@@ -239,9 +234,6 @@ body.admin-mode .btn-outline:hover {
 }
 .parallax3 > use {
   animation: move-forever 13s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-}
-.parallax4 > use {
-  animation: move-forever 20s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 }
 @keyframes move-forever {
   0% {
@@ -262,15 +254,6 @@ body.admin-mode .btn-outline:hover {
 }
 .float-pulse {
   animation: float-whatsapp 3s ease-in-out infinite;
-}
-
-@keyframes shimmer-line {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
 }
 
 /* Scrollbar global sutil */
@@ -308,4 +291,25 @@ body.admin-mode ::-webkit-scrollbar-track {
 body.admin-mode ::-webkit-scrollbar-thumb {
   background: var(--admin-border);
   border-radius: 3px;
+}
+
+/* ── Chat (WhatsApp) ─────────────────────────── */
+.chat-bubble-user {
+  background: var(--brand-gold);
+  color: #1a1408;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+.chat-bubble-human {
+  background: var(--brand-orange);
+  color: #fff;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+.chat-bubble-assistant {
+  background: var(--admin-bg-tertiary);
+  color: var(--admin-text);
+  border: 1px solid var(--admin-border);
+  border-radius: 1rem 1rem 1rem 0.25rem;
+}
+body.admin-mode.admin-light .chat-bubble-assistant {
+  background: var(--admin-bg-tertiary);
 }

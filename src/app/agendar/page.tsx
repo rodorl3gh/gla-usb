@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import {
   Clock,
   User,
   Phone,
+  Mail,
   CheckCircle2,
   GraduationCap,
   BookOpen,
@@ -59,6 +60,7 @@ export default function AgendarPage() {
   const [hora, setHora] = useState("");
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [email, setEmail] = useState("");
   const [notas, setNotas] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -133,6 +135,7 @@ export default function AgendarPage() {
         body: JSON.stringify({
           nombre,
           telefono,
+          email,
           interes,
           fecha,
           hora,
@@ -161,8 +164,7 @@ export default function AgendarPage() {
       const ds = ymd(calYear, calMonth, d);
       const dow = new Date(calYear, calMonth, d).getDay();
       const isPast = ds < todayStr;
-      const isSunday = dow === 0;
-      cells.push({ day: d, date: ds, enabled: !isPast && !isSunday });
+      cells.push({ day: d, date: ds, enabled: !isPast });
     }
     return cells;
   }
@@ -170,13 +172,13 @@ export default function AgendarPage() {
   if (done) {
     return (
       <div style={{ minHeight: "100vh", backgroundImage: "url(/fondo.avif)", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(0,15,38,0.92), rgba(0,22,55,0.7) 60%, rgba(0,15,38,0.55))" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(0,0,0,0.9), rgba(0,0,0,0.68) 60%, rgba(0,0,0,0.5))" }} />
         <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Navbar marca={cfg.marca || "USB"} telefono={cfg.telefono || ""} />
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem 1.5rem" }}>
-            <div className="glass-card" style={{ maxWidth: 480, width: "100%", padding: "2.5rem", textAlign: "center" }}>
-              <CheckCircle2 size={56} style={{ color: "#1e9e6a", margin: "0 auto 1rem" }} />
-              <h1 style={{ fontSize: "1.6rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.75rem" }}>
+            <div className="glass-card" style={{ maxWidth: 480, width: "100%", padding: "2.25rem", textAlign: "center" }}>
+              <CheckCircle2 size={52} style={{ color: "#1e9e6a", margin: "0 auto 1rem" }} />
+              <h1 style={{ fontSize: "1.5rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.75rem" }}>
                 ¡Plática agendada!
               </h1>
               <p style={{ color: "var(--brand-text-secondary)", lineHeight: 1.6, margin: "0 0 1.5rem" }}>
@@ -203,40 +205,24 @@ export default function AgendarPage() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundImage: "url(/fondo.avif)", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(0,15,38,0.92), rgba(0,22,55,0.72) 55%, rgba(0,15,38,0.55))" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.5))" }} />
       <div style={{ position: "relative", zIndex: 1 }}>
         <Navbar marca={cfg.marca || "USB"} telefono={cfg.telefono || ""} />
-        <div style={{ maxWidth: 720, margin: "0 auto", padding: "4.5rem 1.5rem 2rem" }}>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "-2.75rem", position: "relative", zIndex: 2 }}>
-            <div
-              style={{
-                width: 96,
-                height: 96,
-                borderRadius: "50%",
-                overflow: "hidden",
-                border: "4px solid #fff",
-                boxShadow: "0 14px 34px rgba(0,0,0,0.45)",
-                backgroundColor: "#fff",
-              }}
-            >
-              <Image src="/logo-square.jpg" alt="Logo USB" width={96} height={96} style={{ objectFit: "cover" }} />
-            </div>
-          </div>
-
-          <div className="glass-card" style={{ padding: "3rem 1.5rem 1.5rem" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto", padding: "4.5rem 1rem 1.25rem" }}>
+          <div className="glass-card" style={{ padding: "1.25rem 1.25rem 1.25rem" }}>
             {/* Stepper */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "1.25rem" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem" }}>
               {[1, 2, 3, 4].map((s) => (
                 <div key={s} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <div
                     style={{
-                      width: 30,
-                      height: 30,
+                      width: 28,
+                      height: 28,
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "0.8rem",
+                      fontSize: "0.75rem",
                       fontWeight: 700,
                       backgroundColor: step >= s ? "var(--brand-gold)" : "var(--brand-bg-light)",
                       color: step >= s ? "#1a1408" : "var(--brand-text-muted)",
@@ -246,14 +232,14 @@ export default function AgendarPage() {
                     {s}
                   </div>
                   {s < 4 && (
-                    <div style={{ width: 24, height: 2, backgroundColor: step > s ? "var(--brand-gold)" : "var(--brand-border)" }} />
+                    <div style={{ width: 20, height: 2, backgroundColor: step > s ? "var(--brand-gold)" : "var(--brand-border)" }} />
                   )}
                 </div>
               ))}
             </div>
 
             {error && (
-              <div style={{ backgroundColor: "#fdecea", color: "#b42318", padding: "0.75rem 1rem", borderRadius: "0.6rem", fontSize: "0.85rem", marginBottom: "1rem" }}>
+              <div style={{ backgroundColor: "#fdecea", color: "#b42318", padding: "0.6rem 1rem", borderRadius: "0.6rem", fontSize: "0.85rem", marginBottom: "0.75rem" }}>
                 {error}
               </div>
             )}
@@ -261,18 +247,18 @@ export default function AgendarPage() {
             {/* STEP 1: Interés */}
             {step === 1 && (
               <div>
-                <h2 style={{ fontSize: "1.35rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
+                <h2 style={{ fontSize: "1.2rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
                   ¿Qué programa te interesa?
                 </h2>
-                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.9rem", margin: "0 0 1rem" }}>
-                  Elige la carrera que quieres estudiar y continuaremos automáticamente.
+                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
+                  Elige la carrera y continuaremos automáticamente.
                 </p>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "0 0 0.75rem" }}>
-                  <GraduationCap size={16} color="var(--brand-gold-dark)" />
-                  <span style={{ fontWeight: 700, fontSize: "0.9rem" }}>Licenciaturas e Ingeniería</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "0 0 0.5rem" }}>
+                  <GraduationCap size={15} color="var(--brand-gold-dark)" />
+                  <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>Licenciaturas e Ingeniería</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "0.6rem", marginBottom: "1.25rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "0.5rem", marginBottom: "0.75rem" }}>
                   {licenciaturas.map((l) => {
                     const selected = interes === l.nombre;
                     return (
@@ -284,28 +270,28 @@ export default function AgendarPage() {
                         }}
                         style={{
                           textAlign: "left",
-                          padding: "0.8rem",
-                          borderRadius: "0.85rem",
+                          padding: "0.6rem 0.7rem",
+                          borderRadius: "0.7rem",
                           border: selected ? "2px solid var(--brand-gold)" : "1px solid var(--brand-border)",
-                          backgroundColor: selected ? "rgba(198,161,91,0.1)" : "#fff",
+                          backgroundColor: selected ? "rgba(245,188,25,0.1)" : "#fff",
                           cursor: "pointer",
                           display: "flex",
                           flexDirection: "column",
-                          gap: "0.3rem",
+                          gap: "0.2rem",
                         }}
                       >
-                        <div style={{ fontWeight: 700, fontSize: "0.85rem", lineHeight: 1.25 }}>{l.nombre}</div>
-                        {l.duracion && <div style={{ fontWeight: 600, color: "var(--brand-gold-dark)", fontSize: "0.72rem" }}>{l.duracion}</div>}
+                        <div style={{ fontWeight: 700, fontSize: "0.78rem", lineHeight: 1.25 }}>{l.nombre}</div>
+                        {l.duracion && <div style={{ fontWeight: 600, color: "var(--brand-gold-dark)", fontSize: "0.68rem" }}>{l.duracion}</div>}
                       </button>
                     );
                   })}
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "0 0 0.75rem" }}>
-                  <BookOpen size={16} color="var(--brand-gold-dark)" />
-                  <span style={{ fontWeight: 700, fontSize: "0.9rem" }}>Maestrías</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "0 0 0.5rem" }}>
+                  <BookOpen size={15} color="var(--brand-gold-dark)" />
+                  <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>Maestrías</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "0.6rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "0.5rem" }}>
                   {maestrias.map((m) => {
                     const selected = interes === m.nombre;
                     return (
@@ -317,17 +303,17 @@ export default function AgendarPage() {
                         }}
                         style={{
                           textAlign: "left",
-                          padding: "0.8rem",
-                          borderRadius: "0.85rem",
+                          padding: "0.6rem 0.7rem",
+                          borderRadius: "0.7rem",
                           border: selected ? "2px solid var(--brand-gold)" : "1px solid var(--brand-border)",
-                          backgroundColor: selected ? "rgba(198,161,91,0.1)" : "#fff",
+                          backgroundColor: selected ? "rgba(245,188,25,0.1)" : "#fff",
                           cursor: "pointer",
                           display: "flex",
                           flexDirection: "column",
-                          gap: "0.3rem",
+                          gap: "0.2rem",
                         }}
                       >
-                        <div style={{ fontWeight: 700, fontSize: "0.85rem", lineHeight: 1.25 }}>{m.nombre}</div>
+                        <div style={{ fontWeight: 700, fontSize: "0.78rem", lineHeight: 1.25 }}>{m.nombre}</div>
                       </button>
                     );
                   })}
@@ -338,32 +324,32 @@ export default function AgendarPage() {
             {/* STEP 2: Fecha */}
             {step === 2 && (
               <div>
-                <h2 style={{ fontSize: "1.35rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
+                <h2 style={{ fontSize: "1.2rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
                   Elige la fecha
                 </h2>
-                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.9rem", margin: "0 0 1rem" }}>
-                  Atendemos de lunes a sábado. Los domingos no están disponibles.
+                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
+                  Atendemos de lunes a viernes.
                 </p>
                 {interes && (
-                  <div style={{ backgroundColor: "var(--brand-bg-light)", borderRadius: "0.8rem", padding: "0.75rem 1rem", marginBottom: "1rem", fontSize: "0.85rem" }}>
+                  <div style={{ backgroundColor: "var(--brand-bg-light)", borderRadius: "0.7rem", padding: "0.6rem 0.9rem", marginBottom: "0.75rem", fontSize: "0.8rem" }}>
                     <strong>Programa de interés:</strong> {interes}
                   </div>
                 )}
-                <div className="glass-card" style={{ padding: "1.25rem", boxShadow: "none" }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+                <div style={{ border: "1px solid var(--brand-border)", borderRadius: "0.8rem", padding: "0.9rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.6rem" }}>
                     <button onClick={prevMonth} style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--brand-text)" }}>
                       <ChevronLeft size={20} />
                     </button>
-                    <div style={{ fontWeight: 700, fontSize: "1rem" }}>
+                    <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>
                       {MESES[calMonth]} {calYear}
                     </div>
                     <button onClick={nextMonth} style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--brand-text)" }}>
                       <ChevronRight size={20} />
                     </button>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.35rem", textAlign: "center" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.3rem", textAlign: "center" }}>
                     {DIAS_CORTO.map((d) => (
-                      <div key={d} style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--brand-text-muted)", padding: "0.25rem 0" }}>
+                      <div key={d} style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--brand-text-muted)", padding: "0.2rem 0" }}>
                         {d}
                       </div>
                     ))}
@@ -376,13 +362,13 @@ export default function AgendarPage() {
                           disabled={!c.enabled}
                           onClick={() => selectFecha(c.date)}
                           style={{
-                            padding: "0.6rem 0",
+                            padding: "0.5rem 0",
                             borderRadius: "0.6rem",
                             border: fecha === c.date ? "2px solid var(--brand-gold)" : "1px solid transparent",
                             backgroundColor: fecha === c.date ? "var(--brand-gold)" : "transparent",
                             color: !c.enabled ? "var(--brand-text-muted)" : fecha === c.date ? "#1a1408" : "var(--brand-text)",
                             fontWeight: 600,
-                            fontSize: "0.85rem",
+                            fontSize: "0.8rem",
                             cursor: c.enabled ? "pointer" : "not-allowed",
                             opacity: c.enabled ? 1 : 0.4,
                           }}
@@ -393,11 +379,11 @@ export default function AgendarPage() {
                     )}
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
-                  <button className="btn-outline" onClick={() => setStep(1)}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.75rem" }}>
+                  <button className="btn-outline" onClick={() => setStep(1)} style={{ padding: "0.55rem 1.1rem" }}>
                     <ChevronLeft size={16} /> Atrás
                   </button>
-                  <button className="btn-primary" disabled={!fecha} onClick={() => setStep(3)}>
+                  <button className="btn-primary" disabled={!fecha} onClick={() => setStep(3)} style={{ padding: "0.55rem 1.1rem" }}>
                     Continuar <ChevronRight size={16} />
                   </button>
                 </div>
@@ -407,20 +393,20 @@ export default function AgendarPage() {
             {/* STEP 3: Hora */}
             {step === 3 && (
               <div>
-                <h2 style={{ fontSize: "1.35rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
+                <h2 style={{ fontSize: "1.2rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
                   Elige la hora
                 </h2>
-                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.9rem", margin: "0 0 1rem" }}>
-                  {formatFecha(fecha)} · Horarios disponibles
+                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
+                  {formatFecha(fecha)} · Horarios disponibles (30 min)
                 </p>
                 {loadingHoras ? (
-                  <div style={{ textAlign: "center", padding: "2rem", color: "var(--brand-text-muted)" }}>Cargando horarios...</div>
+                  <div style={{ textAlign: "center", padding: "1.5rem", color: "var(--brand-text-muted)" }}>Cargando horarios...</div>
                 ) : horas.length === 0 ? (
-                  <div style={{ textAlign: "center", padding: "2rem", color: "var(--brand-text-secondary)" }}>
+                  <div style={{ textAlign: "center", padding: "1.5rem", color: "var(--brand-text-secondary)" }}>
                     No hay horarios disponibles para esta fecha. Elige otro día.
                   </div>
                 ) : (
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))", gap: "0.6rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(84px, 1fr))", gap: "0.5rem" }}>
                     {horas.map((h) => (
                       <button
                         key={h}
@@ -429,30 +415,30 @@ export default function AgendarPage() {
                           setStep(4);
                         }}
                         style={{
-                          padding: "0.75rem",
+                          padding: "0.6rem",
                           borderRadius: "0.7rem",
                           border: hora === h ? "2px solid var(--brand-gold)" : "1px solid var(--brand-border)",
                           backgroundColor: hora === h ? "var(--brand-gold)" : "#fff",
                           color: hora === h ? "#1a1408" : "var(--brand-text)",
                           fontWeight: 600,
-                          fontSize: "0.9rem",
+                          fontSize: "0.85rem",
                           cursor: "pointer",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          gap: "0.35rem",
+                          gap: "0.3rem",
                         }}
                       >
-                        <Clock size={14} /> {h}
+                        <Clock size={13} /> {h}
                       </button>
                     ))}
                   </div>
                 )}
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
-                  <button className="btn-outline" onClick={() => setStep(2)}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.75rem" }}>
+                  <button className="btn-outline" onClick={() => setStep(2)} style={{ padding: "0.55rem 1.1rem" }}>
                     <ChevronLeft size={16} /> Atrás
                   </button>
-                  <button className="btn-primary" disabled={!hora} onClick={() => setStep(4)}>
+                  <button className="btn-primary" disabled={!hora} onClick={() => setStep(4)} style={{ padding: "0.55rem 1.1rem" }}>
                     Continuar <ChevronRight size={16} />
                   </button>
                 </div>
@@ -462,85 +448,89 @@ export default function AgendarPage() {
             {/* STEP 4: Datos */}
             {step === 4 && (
               <div>
-                <h2 style={{ fontSize: "1.35rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
+                <h2 style={{ fontSize: "1.2rem", fontWeight: 800, fontFamily: "var(--font-display)", margin: "0 0 0.25rem" }}>
                   Tus datos
                 </h2>
-                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.9rem", margin: "0 0 1rem" }}>
+                <p style={{ color: "var(--brand-text-secondary)", fontSize: "0.85rem", margin: "0 0 0.75rem" }}>
                   Confirma los detalles de tu plática informativa.
                 </p>
 
-                <div style={{ backgroundColor: "var(--brand-bg-light)", borderRadius: "0.8rem", padding: "1rem 1.25rem", marginBottom: "1.25rem", fontSize: "0.9rem" }}>
-                  <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.4rem" }}>
-                    <GraduationCap size={15} color="var(--brand-gold-dark)" />
+                <div style={{ backgroundColor: "var(--brand-bg-light)", borderRadius: "0.7rem", padding: "0.6rem 0.9rem", marginBottom: "0.9rem", fontSize: "0.82rem" }}>
+                  <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.25rem" }}>
+                    <GraduationCap size={14} color="var(--brand-gold-dark)" />
                     <span><strong>Interés:</strong> {interes || "—"}</span>
                   </div>
-                  <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.4rem" }}>
-                    <CalendarDays size={15} color="var(--brand-gold-dark)" />
+                  <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.25rem" }}>
+                    <CalendarDays size={14} color="var(--brand-gold-dark)" />
                     <span><strong>Fecha:</strong> {formatFecha(fecha)}</span>
                   </div>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <Clock size={15} color="var(--brand-gold-dark)" />
+                  <div style={{ display: "flex", gap: "0.4rem" }}>
+                    <Clock size={14} color="var(--brand-gold-dark)" />
                     <span><strong>Hora:</strong> {hora}</span>
                   </div>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--brand-text-secondary)" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--brand-text-secondary)" }}>
                     Nombre completo *
-                    <div style={{ position: "relative", marginTop: "0.3rem" }}>
-                      <User size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--brand-text-muted)" }} />
+                    <div style={{ position: "relative", marginTop: "0.25rem" }}>
+                      <User size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "var(--brand-text-muted)" }} />
                       <input
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
-                        style={{ width: "100%", padding: "0.65rem 0.75rem 0.65rem 2.4rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.9rem" }}
+                        style={{ width: "100%", padding: "0.55rem 0.65rem 0.55rem 2rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.85rem" }}
                         placeholder="Ej. Juan Pérez"
                       />
                     </div>
                   </label>
-                  <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--brand-text-secondary)" }}>
+                  <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--brand-text-secondary)" }}>
                     Teléfono *
-                    <div style={{ position: "relative", marginTop: "0.3rem" }}>
-                      <Phone size={16} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--brand-text-muted)" }} />
+                    <div style={{ position: "relative", marginTop: "0.25rem" }}>
+                      <Phone size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "var(--brand-text-muted)" }} />
                       <input
                         value={telefono}
                         onChange={(e) => setTelefono(e.target.value.replace(/\D/g, "").slice(0, 10))}
                         inputMode="numeric"
                         maxLength={10}
-                        style={{ width: "100%", padding: "0.65rem 0.75rem 0.65rem 2.4rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.9rem" }}
+                        style={{ width: "100%", padding: "0.55rem 0.65rem 0.55rem 2rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.85rem" }}
                         placeholder="10 dígitos"
                       />
                     </div>
-                    <span
-                      style={{
-                        fontSize: "0.72rem",
-                        fontWeight: 500,
-                        marginTop: "0.3rem",
-                        color: telefono.length === 10 ? "#1e9e6a" : telefono.length === 0 ? "var(--brand-text-muted)" : "#e0a800",
-                      }}
-                    >
-                      {telefono.length === 10
-                        ? "Número completo"
-                        : `Faltan ${10 - telefono.length} dígito${10 - telefono.length !== 1 ? "s" : ""}`}
+                    <span style={{ fontSize: "0.68rem", fontWeight: 500, color: telefono.length === 10 ? "#1e9e6a" : telefono.length === 0 ? "var(--brand-text-muted)" : "#e0a800" }}>
+                      {telefono.length === 10 ? "Número completo" : `Faltan ${10 - telefono.length}`}
                     </span>
+                  </label>
+                  <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--brand-text-secondary)", gridColumn: "1 / -1" }}>
+                    Correo electrónico
+                    <div style={{ position: "relative", marginTop: "0.25rem" }}>
+                      <Mail size={14} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "var(--brand-text-muted)" }} />
+                      <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        style={{ width: "100%", padding: "0.55rem 0.65rem 0.55rem 2rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.85rem" }}
+                        placeholder="tucorreo@ejemplo.com"
+                      />
+                    </div>
                   </label>
                 </div>
 
-                <label style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--brand-text-secondary)", marginTop: "0.5rem" }}>
+                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--brand-text-secondary)", marginTop: "0.5rem", display: "block" }}>
                   Notas adicionales (opcional)
                   <textarea
                     value={notas}
                     onChange={(e) => setNotas(e.target.value)}
-                    style={{ width: "100%", marginTop: "0.3rem", padding: "0.6rem 0.75rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.9rem", minHeight: 48, resize: "vertical" }}
-                    placeholder="Cuéntanos brevemente tu situación..."
+                    style={{ width: "100%", marginTop: "0.25rem", padding: "0.5rem 0.65rem", borderRadius: "0.6rem", border: "1px solid var(--brand-border)", fontSize: "0.85rem", minHeight: 40, resize: "vertical" }}
+                    placeholder="Cuéntanos brevemente..."
                   />
                 </label>
 
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
-                  <button className="btn-outline" onClick={() => setStep(3)}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.75rem" }}>
+                  <button className="btn-outline" onClick={() => setStep(3)} style={{ padding: "0.55rem 1.1rem" }}>
                     <ChevronLeft size={16} /> Atrás
                   </button>
-                  <button className="btn-primary" disabled={!nombre || telefono.length !== 10 || submitting} onClick={confirmar}>
-                    {submitting ? "Agendando..." : "Confirmar plática"} <CheckCircle2 size={16} />
+                  <button className="btn-primary" disabled={!nombre || telefono.length !== 10 || submitting} onClick={confirmar} style={{ padding: "0.55rem 1.1rem" }}>
+                    {submitting ? "Agendando..." : "Confirmar plática"} <CheckCircle2 size={15} />
                   </button>
                 </div>
               </div>

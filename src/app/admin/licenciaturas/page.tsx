@@ -128,7 +128,7 @@ export default function LicenciaturasPage() {
                       width: "2.25rem",
                       height: "2.25rem",
                       borderRadius: "0.6rem",
-                      backgroundColor: active ? "rgba(198,161,91,0.14)" : "rgba(148,163,184,0.1)",
+                      backgroundColor: active ? "rgba(245,188,25,0.14)" : "rgba(148,163,184,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",

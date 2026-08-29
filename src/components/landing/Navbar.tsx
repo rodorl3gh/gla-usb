@@ -84,7 +84,7 @@ export default function Navbar({ marca, telefono }: NavbarProps) {
             <a
               key={l.href}
               href={l.href}
-              style={{ color: "#d7e3ee", textDecoration: "none", fontSize: "0.875rem", fontWeight: 500 }}
+              style={{ color: "#e8eef3", textDecoration: "none", fontSize: "0.875rem", fontWeight: 500 }}
               className="hover:text-[var(--brand-gold)]"
             >
               {l.label}
@@ -124,7 +124,7 @@ export default function Navbar({ marca, telefono }: NavbarProps) {
       {open && (
         <nav
           style={{
-            backgroundColor: "var(--brand-navy-2)",
+            backgroundColor: "var(--brand-primary-dark)",
             padding: "0.5rem 1.5rem 1.25rem",
             display: "flex",
             flexDirection: "column",

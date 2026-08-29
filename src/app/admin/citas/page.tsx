@@ -13,6 +13,8 @@ import {
   X,
   Check,
   GraduationCap,
+  Link2,
+  CheckCircle2,
 } from "lucide-react";
 import { Modal } from "@/components/admin/crud";
 
@@ -44,7 +46,7 @@ const ESTADO_COLORS: Record<string, string> = {
 const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const DIAS = ["D", "L", "M", "X", "J", "V", "S"];
 
-const ACCENT = "#c6a15b";
+const ACCENT = "#f5bc19";
 
 function api(path: string, method: string, body?: unknown) {
   const token = localStorage.getItem("admin_token");
@@ -78,6 +80,8 @@ export default function CitasPage() {
   const [showNew, setShowNew] = useState(false);
   const [form, setForm] = useState({ nombre: "", telefono: "", email: "", interes: "", fecha: "", hora: "", notas: "" });
   const [msg, setMsg] = useState("");
+  const [googleConfigured, setGoogleConfigured] = useState(false);
+  const [googleConnected, setGoogleConnected] = useState(false);
 
   const monthKey = `${viewYear}-${String(viewMonth + 1).padStart(2, "0")}`;
 
@@ -89,7 +93,22 @@ export default function CitasPage() {
 
   useEffect(() => {
     load();
+    fetch("/api/google/status", { headers: { Authorization: `Bearer ${localStorage.getItem("admin_token")}` } })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((d: { configured?: boolean; connected?: boolean }) => {
+        setGoogleConfigured(!!d.configured);
+        setGoogleConnected(!!d.connected);
+      })
+      .catch(() => {});
   }, [load]);
+
+  async function disconnectGoogle() {
+    await fetch("/api/google/status", {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${localStorage.getItem("admin_token")}` },
+    });
+    setGoogleConnected(false);
+  }
 
   const citasDelDia = selectedDate ? citas.filter((c) => c.fecha === selectedDate) : [];
   const citasPorDia: Record<string, number> = {};
@@ -175,8 +194,26 @@ export default function CitasPage() {
             {totalCitasMes} plática{totalCitasMes !== 1 ? "s" : ""} en {MESES[viewMonth]} {viewYear}
           </p>
         </div>
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
           {msg && <span style={{ color: "#10B981", fontSize: "0.8rem", fontWeight: 600 }}>{msg}</span>}
+          {googleConfigured ? (
+            googleConnected ? (
+              <button
+                onClick={disconnectGoogle}
+                className="btn-outline"
+                style={{ padding: "0.5rem 1rem", fontSize: "0.8rem" }}
+                title="Desconectar Google Calendar"
+              >
+                <CheckCircle2 size={15} color="#10B981" /> Google conectado
+              </button>
+            ) : (
+              <a href="/api/google/auth" className="btn-outline" style={{ padding: "0.5rem 1rem", fontSize: "0.8rem", textDecoration: "none" }}>
+                <Link2 size={15} /> Conectar Google Calendar
+              </a>
+            )
+          ) : (
+            <span style={{ fontSize: "0.75rem", color: "var(--admin-text-muted)" }}>Google no configurado</span>
+          )}
           <button
             onClick={() => {
               setForm((f) => ({ ...f, fecha: selectedDate || `${viewYear}-${String(viewMonth + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}` }));
@@ -232,7 +269,7 @@ export default function CitasPage() {
                     border: "1px solid transparent",
                     padding: 0,
                     cursor: "pointer",
-                    background: sel ? ACCENT : count > 0 ? "rgba(198,161,91,0.14)" : tdy ? "rgba(198,161,91,0.07)" : "transparent",
+                    background: sel ? ACCENT : count > 0 ? "rgba(245,188,25,0.14)" : tdy ? "rgba(245,188,25,0.07)" : "transparent",
                     borderRadius: "0.5rem",
                     display: "flex",
                     flexDirection: "column",
@@ -299,7 +336,7 @@ export default function CitasPage() {
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
-                <div style={{ width: "2.75rem", height: "2.75rem", borderRadius: "0.75rem", backgroundColor: "rgba(198,161,91,0.14)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "2.75rem", height: "2.75rem", borderRadius: "0.75rem", backgroundColor: "rgba(245,188,25,0.14)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <Clock size={18} color={ACCENT} />
                 </div>
                 <div>
@@ -399,7 +436,7 @@ export default function CitasPage() {
                         gap: "0.6rem",
                       }}
                     >
-                      <span style={{ fontWeight: 700, fontSize: "0.8rem", color: ACCENT, minWidth: "3rem", textAlign: "center", backgroundColor: "rgba(198,161,91,0.12)", padding: "0.15rem 0.3rem", borderRadius: "0.35rem" }}>
+                      <span style={{ fontWeight: 700, fontSize: "0.8rem", color: ACCENT, minWidth: "3rem", textAlign: "center", backgroundColor: "rgba(245,188,25,0.12)", padding: "0.15rem 0.3rem", borderRadius: "0.35rem" }}>
                         {c.hora}
                       </span>
                       <div style={{ flex: 1, minWidth: 0 }}>

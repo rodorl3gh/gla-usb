@@ -9,7 +9,8 @@ import {
   GraduationCap,
   BookOpen,
   CalendarDays,
-  Settings,
+  MessageCircle,
+  Clock,
   ExternalLink,
   LogOut,
   X,
@@ -20,9 +21,10 @@ import {
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/citas", label: "Pláticas (Citas)", icon: CalendarDays },
+  { href: "/admin/horarios", label: "Horarios", icon: Clock },
+  { href: "/admin/chat", label: "Chat WhatsApp", icon: MessageCircle },
   { href: "/admin/licenciaturas", label: "Licenciaturas", icon: GraduationCap },
   { href: "/admin/maestrias", label: "Maestrías", icon: BookOpen },
-  { href: "/admin/config", label: "Configuración", icon: Settings },
 ];
 
 export default function AdminSidebar({
@@ -118,7 +120,7 @@ export default function AdminSidebar({
                 borderRadius: "0.7rem",
                 textDecoration: "none",
                 color: active ? "var(--admin-accent)" : "var(--admin-text-secondary)",
-                backgroundColor: active ? "rgba(198,161,91,0.12)" : "transparent",
+                backgroundColor: active ? "rgba(245,188,25,0.12)" : "transparent",
                 fontWeight: 600,
                 fontSize: "0.875rem",
               }}

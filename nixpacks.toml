@@ -1,5 +1,5 @@
-# Universidad Superior Bajío (landing + panel admin)
-# Build para Easy Panel via Nixpacks (Node 20 requerido por Next.js 16 + better-sqlite3)
+# Universidad Superior Bajío (landing + panel admin + agente WhatsApp)
+# Build para Easy Panel via Nixpacks (Node 22 requerido por Next.js 16 + better-sqlite3 + baileys)
 
 [phases.setup]
 nixPkgs = ["nodejs_22", "python3", "gcc", "gnumake"]
