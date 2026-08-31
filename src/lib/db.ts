@@ -159,7 +159,7 @@ function runMigrations(db: Database.Database) {
       delay_ms INTEGER NOT NULL DEFAULT 1500,
       temperature REAL NOT NULL DEFAULT 0.7,
       max_history INTEGER NOT NULL DEFAULT 10,
-      ia_model TEXT NOT NULL DEFAULT 'deepseek-v4-flash'
+      ia_model TEXT NOT NULL DEFAULT 'deepseek-chat'
     );
     INSERT OR IGNORE INTO agent_config (id) VALUES (1);
     CREATE TABLE IF NOT EXISTS agent_prompt (
@@ -185,6 +185,11 @@ function runMigrations(db: Database.Database) {
   if (!convNames.includes("email")) {
     db.exec("ALTER TABLE conversations ADD COLUMN email TEXT DEFAULT ''");
   }
+
+  // Migración: corregir modelo del agente a un modelo de chat válido
+  db.prepare(
+    "UPDATE agent_config SET ia_model = 'deepseek-chat' WHERE ia_model = 'deepseek-v4-flash' OR ia_model = '' OR ia_model IS NULL"
+  ).run();
 
   seedDefaults(db);
 }
@@ -620,6 +625,13 @@ export function deleteConversation(id: number) {
 export function getMessages(convId: number, limit = 50): any[] {
   return getDb()
     .prepare("SELECT * FROM messages WHERE conversation_id = ? ORDER BY created_at ASC LIMIT ?")
+    .all(convId, limit);
+}
+export function getRecentMessages(convId: number, limit = 50): any[] {
+  return getDb()
+    .prepare(
+      "SELECT * FROM (SELECT * FROM messages WHERE conversation_id = ? ORDER BY id DESC LIMIT ?) ORDER BY id ASC"
+    )
     .all(convId, limit);
 }
 export function insertMessage(convId: number, role: "user" | "assistant" | "human", content: string) {

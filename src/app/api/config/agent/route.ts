@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const auth = getAuthFromRequest(req);
   if (!auth.valid) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   return NextResponse.json(
-    getAgentConfig() || { delay_ms: 1500, temperature: 0.7, max_history: 10, ia_model: "deepseek-v4-flash" }
+    getAgentConfig() || { delay_ms: 1500, temperature: 0.7, max_history: 10, ia_model: "deepseek-chat" }
   );
 }
 

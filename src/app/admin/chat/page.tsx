@@ -419,7 +419,7 @@ export default function ChatPage() {
 }
 
 function AgentConfig({ onClose }: { onClose: () => void }) {
-  const [config, setConfig] = useState({ delay_ms: 1500, temperature: 0.7, max_history: 10, ia_model: "deepseek-v4-flash" });
+  const [config, setConfig] = useState({ delay_ms: 1500, temperature: 0.7, max_history: 10, ia_model: "deepseek-chat" });
   const [prompt, setPrompt] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -517,7 +517,7 @@ function AgentConfig({ onClose }: { onClose: () => void }) {
               onChange={(e) => setConfig({ ...config, ia_model: e.target.value })}
               className="input-field"
             />
-            <span style={{ fontSize: "0.65rem", fontWeight: 400, color: "var(--admin-text-muted)" }}>deepseek-v4-flash para conversacional</span>
+            <span style={{ fontSize: "0.65rem", fontWeight: 400, color: "var(--admin-text-muted)" }}>deepseek-chat para conversacional</span>
           </label>
 
           <label style={labelStyle}>

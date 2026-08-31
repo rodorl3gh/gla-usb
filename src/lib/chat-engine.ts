@@ -4,7 +4,7 @@ import {
   getAgentPrompt,
   findOrCreateConversation,
   insertMessage,
-  getMessages,
+  getRecentMessages,
   setConversationEmail,
   buildSchoolContext,
 } from "./db";
@@ -56,7 +56,7 @@ export async function processMessage(msg: IncomingMessage): Promise<string | nul
 
   // Historial reciente (ahorro de tokens)
   const maxHistory = config.max_history || 10;
-  const historyRows = getMessages(conv.id, maxHistory + 1);
+  const historyRows = getRecentMessages(conv.id, maxHistory + 1);
   // Excluye el último mensaje (el que acabamos de insertar) del historial
   const history: ChatTurn[] = historyRows
     .slice(0, -1)
@@ -67,7 +67,8 @@ export async function processMessage(msg: IncomingMessage): Promise<string | nul
     systemPrompt,
     history,
     msg.text,
-    config.temperature || 0.7
+    config.temperature || 0.7,
+    config.ia_model
   );
 
   if (reply) {

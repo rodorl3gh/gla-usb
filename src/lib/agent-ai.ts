@@ -15,7 +15,7 @@ function getClient(): OpenAI | null {
 }
 
 export function getAgentModel(): string {
-  return process.env.DEEPSEEK_MODEL || "deepseek-v4-flash";
+  return process.env.DEEPSEEK_MODEL || "deepseek-chat";
 }
 
 export interface ChatTurn {
@@ -28,10 +28,14 @@ export async function generateAIResponse(
   systemPrompt: string,
   history: ChatTurn[],
   userMessage: string,
-  temperature: number
+  temperature: number,
+  model?: string
 ): Promise<string | null> {
   const c = getClient();
-  if (!c) return null;
+  if (!c) {
+    console.error("[agent] No hay DEEPSEEK_API_KEY configurada. El agente no puede responder.");
+    return null;
+  }
 
   try {
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
@@ -41,10 +45,10 @@ export async function generateAIResponse(
     ];
 
     const response = await c.chat.completions.create({
-      model: getAgentModel(),
+      model: model || getAgentModel(),
       messages,
       temperature,
-      max_tokens: 500,
+      max_tokens: 2000,
     });
 
     return response.choices[0]?.message?.content?.trim() || null;
