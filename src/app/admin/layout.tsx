@@ -205,15 +205,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "var(--admin-bg)", color: "var(--admin-text)" }}>
+    <div style={{ display: "flex", height: "100vh", overflow: "hidden", backgroundColor: "var(--admin-bg)", color: "var(--admin-text)" }}>
       <AdminSidebar mobileOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={handleLogout} />
-      <main style={{ flex: 1, minWidth: 0 }}>
+      <main style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", minHeight: 0 }}>
         <div
           className="md:hidden"
           style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 40,
+            flexShrink: 0,
             backgroundColor: "var(--admin-bg-secondary)",
             borderBottom: "1px solid var(--admin-border)",
             padding: "0.6rem 1rem",
@@ -232,7 +230,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </svg>
           </button>
         </div>
-        <div style={{ padding: "1.5rem" }}>{children}</div>
+        <div style={{ padding: "1.5rem", flex: 1, minHeight: 0, overflowY: "auto" }}>{children}</div>
       </main>
     </div>
   );

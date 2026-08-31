@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { MessageCircle, Send, RefreshCw, Trash2, Bot, User as UserIcon, Phone, Mail, X, Settings2 } from "lucide-react";
+import { MessageCircle, Send, RefreshCw, Trash2, Bot, User as UserIcon, Phone, Mail, X, Settings2, ChevronLeft } from "lucide-react";
 import QRDisplay from "@/components/admin/QRDisplay";
 
 interface Conversation {
@@ -44,7 +44,16 @@ export default function ChatPage() {
   const [pairingCode, setPairingCode] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const loadConversations = useCallback(async () => {
     const res = await api("/api/chat", "GET");
@@ -157,7 +166,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div style={{ animation: "page-in 0.35s ease-out", height: "calc(100vh - 100px)", display: "flex", flexDirection: "column", minHeight: 520 }}>
+    <div style={{ animation: "page-in 0.35s ease-out", height: "100%", display: "flex", flexDirection: "column" }}>
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" }}>
         <div>
@@ -259,9 +268,9 @@ export default function ChatPage() {
       {showConfig && <AgentConfig onClose={() => setShowConfig(false)} />}
 
       {/* Body */}
-      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "300px 1fr", gap: "1rem", minHeight: 0 }}>
+      <div style={{ flex: 1, minHeight: 0, display: isMobile ? "block" : "grid", gridTemplateColumns: isMobile ? undefined : "300px 1fr", gap: "1rem" }}>
         {/* Lista de conversaciones */}
-        <div style={{ backgroundColor: "var(--admin-bg-secondary)", border: "1px solid var(--admin-border)", borderRadius: "0.875rem", overflowY: "auto", display: "flex", flexDirection: "column" }}>
+        <div style={{ backgroundColor: "var(--admin-bg-secondary)", border: "1px solid var(--admin-border)", borderRadius: "0.875rem", overflowY: "auto", display: isMobile && selected ? "none" : "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
           <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--admin-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>Conversaciones</span>
             <button onClick={loadConversations} style={{ background: "none", border: "none", color: "var(--admin-text-muted)", cursor: "pointer" }}>
@@ -317,7 +326,7 @@ export default function ChatPage() {
         </div>
 
         {/* Chat */}
-        <div style={{ backgroundColor: "var(--admin-bg-secondary)", border: "1px solid var(--admin-border)", borderRadius: "0.875rem", display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <div style={{ backgroundColor: "var(--admin-bg-secondary)", border: "1px solid var(--admin-border)", borderRadius: "0.875rem", display: isMobile && !selected ? "none" : "flex", flexDirection: "column", minWidth: 0, height: "100%", minHeight: 0 }}>
           {!selected ? (
             <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.75rem", color: "var(--admin-text-muted)" }}>
               <MessageCircle size={40} style={{ opacity: 0.25 }} />
@@ -328,6 +337,11 @@ export default function ChatPage() {
               {/* Chat header */}
               <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--admin-border)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", minWidth: 0 }}>
+                  {isMobile && (
+                    <button onClick={() => setSelectedId(null)} style={{ background: "none", border: "none", color: "var(--admin-text-secondary)", cursor: "pointer", padding: "0.25rem", flexShrink: 0 }}>
+                      <ChevronLeft size={20} />
+                    </button>
+                  )}
                   <div style={{ width: 32, height: 32, borderRadius: "50%", background: selected.mode === "AI" ? "rgba(245,188,25,0.15)" : "rgba(243,116,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     {selected.mode === "AI" ? <Bot size={16} color="var(--admin-accent)" /> : <UserIcon size={16} color="var(--brand-orange)" />}
                   </div>

@@ -48,11 +48,16 @@ export async function processMessage(msg: IncomingMessage): Promise<string | nul
   const config = getAgentConfig();
   const schoolContext = buildSchoolContext();
   const customPrompt = getAgentPrompt();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
+  const portalInfo = baseUrl
+    ? `\n\n=== PORTAL WEB DE AGENDAMIENTO ===\nEl prospecto agenda su plática informativa en: ${baseUrl}/agendar\nEn ese portal debe hacer clic en "Agendar plática informativa" y seguir los pasos (elegir programa, fecha y hora). Comparte este enlace cuando invites a agendar.`
+    : "";
   const systemPrompt =
     (customPrompt || DEFAULT_AGENT_PROMPT) +
     "\n\n" +
     "INFORMACIÓN OFICIAL DE LA UNIVERSIDAD (fuente única, usa estos datos exactos):\n" +
-    schoolContext;
+    schoolContext +
+    portalInfo;
 
   // Historial reciente (ahorro de tokens)
   const maxHistory = config.max_history || 10;
