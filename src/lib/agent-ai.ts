@@ -15,7 +15,7 @@ function getClient(): OpenAI | null {
 }
 
 export function getAgentModel(): string {
-  return process.env.DEEPSEEK_MODEL || "deepseek-chat";
+  return process.env.DEEPSEEK_MODEL || "deepseek-flash";
 }
 
 export interface ChatTurn {

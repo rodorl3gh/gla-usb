@@ -159,7 +159,7 @@ function runMigrations(db: Database.Database) {
       delay_ms INTEGER NOT NULL DEFAULT 1500,
       temperature REAL NOT NULL DEFAULT 0.7,
       max_history INTEGER NOT NULL DEFAULT 10,
-      ia_model TEXT NOT NULL DEFAULT 'deepseek-chat'
+      ia_model TEXT NOT NULL DEFAULT 'deepseek-flash'
     );
     INSERT OR IGNORE INTO agent_config (id) VALUES (1);
     CREATE TABLE IF NOT EXISTS agent_prompt (
@@ -188,7 +188,7 @@ function runMigrations(db: Database.Database) {
 
   // Migración: corregir modelo del agente a un modelo de chat válido
   db.prepare(
-    "UPDATE agent_config SET ia_model = 'deepseek-chat' WHERE ia_model = 'deepseek-v4-flash' OR ia_model = '' OR ia_model IS NULL"
+    "UPDATE agent_config SET ia_model = 'deepseek-flash' WHERE ia_model IN ('deepseek-chat','deepseek-v4-flash','') OR ia_model IS NULL"
   ).run();
 
   seedDefaults(db);
